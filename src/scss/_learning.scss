@@ -1,0 +1,33 @@
+.learning{
+    & > .container{
+        margin: 10px 100px;
+        background-color: #eee;
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .choose-field{
+        font-size: large;
+        text-align: center;
+        font-weight: 600;
+    }
+    textarea{
+        min-width: 80%;
+        min-height: 45px;
+        border: none;
+        resize: both;
+        font-size: 17px;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    table{
+        margin-top:50px;
+        td{
+            padding: 5px;
+        }
+    }
+    .next{
+        padding: 5px;
+        margin: 40px;
+    }
+}

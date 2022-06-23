@@ -1,0 +1,20 @@
+.home{
+    height: 90vh;
+    // background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    .container {
+        width:fit-content;
+        margin: 0 auto;
+        background-color: grey;
+        padding: 70px 100px;
+        border-radius: 10px;
+        div{
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #eee;
+            margin: 15px;
+        }
+    }
+}
