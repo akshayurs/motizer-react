@@ -1,0 +1,47 @@
+.manage-model{
+
+    .title{
+        text-align: center;
+        margin-top: 30px;
+        font-size: large;
+        font-weight: 600;
+    }
+    .theatres-container{
+        border-radius: 20px;
+        background-color: var(--secondary-color);
+        margin: 10px auto;
+        max-width: 60vw;
+        padding: 10px;
+    }
+    .theatremodel{
+        color:white;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        width: 60%;
+        margin: 0 auto;
+        .name{
+            flex:1;
+            margin-left: 20px;
+            
+        }
+        button{
+            background-color:var(--primary-color);
+            border: none;
+            border-radius: 5px;
+            color:var(--text-color-white);
+            padding: 8px;
+            margin: 0 10px;
+        }
+    }
+    .import{
+        color:white;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        text-align: center;
+        input{
+            margin: 10px;
+            transform: translateX(40px);
+        }
+    }
+}

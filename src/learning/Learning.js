@@ -70,13 +70,14 @@ function Learning() {
             <button
               onClick={() => {
                 changeOpenTheatrePopup(false)
-                window.location.pathname = '/'
+
+                let theatreModelList = JSON.parse(
+                  localStorage.getItem('theatreModelList')
+                )
+                console.log(fields)
                 if (localStorage.getItem(theatre) == null) {
-                  let theatreModelList = JSON.parse(
-                    localStorage.getItem('theatreModelList')
-                  )
                   if (theatreModelList !== null) {
-                    theatreModelList.append(theatre)
+                    theatreModelList.push(theatre)
                   } else {
                     theatreModelList = [theatre]
                   }
@@ -84,8 +85,14 @@ function Learning() {
                     'theatreModelList',
                     JSON.stringify(theatreModelList)
                   )
+                } else {
+                  localStorage.setItem(
+                    'theatreModelList',
+                    JSON.stringify([...theatreModelList, theatre])
+                  )
                 }
                 localStorage.setItem(theatre, JSON.stringify(fields))
+                window.location.pathname = '/'
               }}
             >
               Create Model
@@ -126,7 +133,15 @@ function Learning() {
         )}
 
         <LearningTable details={fields} fieldNames={fieldNames} />
-
+        <button
+          onClick={() => {
+            const name = window.prompt('Enter field name')
+            if (name !== null && name !== undefined && name !== '')
+              changeFieldNames((prev) => [...prev, name])
+          }}
+        >
+          add new field
+        </button>
         <button
           className="next"
           onClick={() => {

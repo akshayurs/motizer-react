@@ -1,20 +1,6 @@
 import { useEffect, useState } from 'react'
 import DetectionTableRow from './DetectionTableRow'
-function download(filename, text) {
-  var element = document.createElement('a')
-  element.setAttribute(
-    'href',
-    'data:text/plain;charset=utf-8,' + encodeURIComponent(text)
-  )
-  element.setAttribute('download', filename)
-
-  element.style.display = 'none'
-  document.body.appendChild(element)
-
-  element.click()
-
-  document.body.removeChild(element)
-}
+import { download } from '../helpers'
 function gernerateJSON(text, fields) {
   let json = []
   json = text.split('\n').map((line) => {
@@ -27,6 +13,46 @@ function gernerateJSON(text, fields) {
   })
 
   download('tickets.json', JSON.stringify(json))
+}
+function maxIndex(fields) {
+  let maxInd = 0
+  if (fields === null || fields === undefined) return 0
+  fields.forEach((field) => {
+    maxInd = Math.max(maxInd, field.end)
+  })
+  return maxInd
+}
+function mergeLines(textLines, field) {
+  if (field === null || field === undefined) return []
+  let newText = []
+  let ind = 0
+  // console.log({ textLines })
+  let maxind = Math.ceil(maxIndex(field) / textLines[0].length)
+  console.log({ maxind, fun: maxIndex(field), len: textLines[0].lengt })
+  let templine = ''
+  textLines = textLines.filter(
+    (line) => line.trim().replace('\r', '').length !== 0
+  )
+
+  if (maxind <= 1) {
+    return textLines
+  }
+
+  textLines.forEach((line, index) => {
+    console.log(line)
+    console.log(templine)
+    if (index % maxind !== 0) {
+      templine += line
+      console.log('concat')
+    } else {
+      console.log('push ')
+      newText.push(templine)
+      templine = line
+    }
+  })
+  newText.push(templine)
+  // console.log({ newText })
+  return newText
 }
 function gernerateCSV(text, fields) {
   let csv = ''
@@ -61,6 +87,7 @@ function Detection() {
   const openTheatre = (theatre) => {
     if (theatre === '') return
     const storedobj = localStorage.getItem(theatre)
+    console.log('stored', storedobj)
     changeFields(JSON.parse(storedobj))
     changeTheatrePopup(false)
     changeFileUpload(true)
@@ -71,7 +98,7 @@ function Detection() {
         <div className="popup">
           <div className="container">
             <div className="title">Choose Theatre Model</div>
-            {theatreModelList === null ? (
+            {theatreModelList === null || theatreModelList === undefined ? (
               <div className="no-models">No models saved</div>
             ) : (
               <>
@@ -136,24 +163,25 @@ function Detection() {
           Export JSON
         </button>
       </div>
-      <table border="1px" align="center" cellPadding="6px" cellSpacing="1px">
+      <table border="1px" align="center" cellPadding="10px" cellSpacing="0px">
         <tr>
-          <th>Movie Name</th>
-          <th>Screen Type</th>
-          <th>Language</th>
-          <th>Screen</th>
-          <th>Seats</th>
-          <th>Date</th>
-          <th>Time</th>
+          {fields !== null &&
+            fields !== undefined &&
+            fields.length !== 0 &&
+            fields.map((field, index) => {
+              return <th>{field.param}</th>
+            })}
         </tr>
-        {text.split('\n').map((line) => {
-          if (line.length === 0) return ''
-          let details = []
-          fields.forEach((field) => {
-            details.push(line.substring(field.start, field.end))
-          })
-          return <DetectionTableRow args={details} />
-        })}
+        {text.length !== 0 &&
+          mergeLines(text.split('\n'), fields).map((line) => {
+            if (line.length === 0) return ''
+            let details = []
+            // console.log('down  foreach', fields)
+            fields.forEach((field) => {
+              details.push(line.substring(field.start, field.end))
+            })
+            return <DetectionTableRow args={details} />
+          })}
       </table>
     </div>
   )

@@ -3,11 +3,18 @@
     // background-color: green;
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content:center;
+    header{
+        width: 100vw;
+        img{
+            
+        }
+    }
     .container {
         width:fit-content;
         margin: 0 auto;
-        background-color: grey;
+        background-color: var(--secondary-color);
         padding: 70px 100px;
         border-radius: 10px;
         div{

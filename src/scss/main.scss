@@ -1,24 +1,41 @@
-@import "./learning";
-@import "./home";
+@import './learning';
+@import './home';
 @import './popup';
 @import './detection';
-
+@import './manage_model';
 :root {
-    --primary-color: lightblue;
+  --primary-color: rgb(26, 26, 26);
+  --text-color-white: #FFF9D7;
+  --secondary-color:#610C63;
 }
-
+a {
+  color: unset;
+  text-decoration: unset;
+  display: unset;
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 header {
-    padding: 10px;
-    text-align: center;
-    background-color: var(--primary-color);
-    font-size: x-large;
+  padding: 10px;
+  text-align: center;
+  background-color: var(--primary-color);
+  font-size: x-large;
+  color:var(--text-color-white);
+  box-shadow: 0px 0px 10px black;
+  
 }
