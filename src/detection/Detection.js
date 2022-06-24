@@ -16,7 +16,17 @@ function download(filename, text) {
   document.body.removeChild(element)
 }
 function gernerateJSON(text, fields) {
-  let csv = ''
+  let json = []
+  json = text.split('\n').map((line) => {
+    if (line.length === 0) return ''
+    let obj = {}
+    fields.forEach((field, index) => {
+      obj[field.param] = line.substring(field.start, field.end).trim()
+    })
+    return obj
+  })
+
+  download('tickets.json', JSON.stringify(json))
 }
 function gernerateCSV(text, fields) {
   let csv = ''
@@ -132,8 +142,8 @@ function Detection() {
           <th>Screen Type</th>
           <th>Language</th>
           <th>Screen</th>
-          <th>Date</th>
           <th>Seats</th>
+          <th>Date</th>
           <th>Time</th>
         </tr>
         {text.split('\n').map((line) => {
